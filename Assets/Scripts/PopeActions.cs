@@ -22,6 +22,12 @@ namespace Pope
         {
             camera = GetComponent<Camera>();
             rayDirection = camera.transform.forward;
+            HandTracker.OnMachanko += OnMachanko;
+        }
+
+        void OnDestroy()
+        {
+            HandTracker.OnMachanko -= OnMachanko;
         }
 
         void Start()
@@ -55,18 +61,9 @@ namespace Pope
             }
         }
 
-        void Bless()
+        void OnMachanko(float intensity)
         {
-            Vector3 rayDirection = camera.transform.forward;
-            RaycastHit hit;
-
-            Vector3 rayStart = camera.ViewportToWorldPoint(Vector3.zero);
-            
-            if (Physics.Raycast(rayStart, rayDirection, out hit, raycastMaxDistance))
-            {
-                var pilgrims = hit.collider.GetComponent<PilgrimGroup>();
-                pilgrims.OnHit();
-            }
+            currentPilgrimGroup?.OnHit();
         }
     }
 }
