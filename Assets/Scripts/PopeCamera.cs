@@ -12,6 +12,7 @@ namespace Pope
         void Awake()
         {
             transform = GetComponent<Transform>();
+            var hand = GetComponent<OVRHand>();
         }
 
         void Update()
