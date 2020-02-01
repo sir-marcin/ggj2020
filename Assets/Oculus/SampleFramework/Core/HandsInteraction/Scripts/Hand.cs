@@ -9,12 +9,15 @@ language governing permissions and limitations under the license.
 
 ************************************************************************************/
 
+using System;
 using UnityEngine;
 
 namespace OculusSampleFramework
 {
 	public class Hand : MonoBehaviour
 	{
+		public static event Action<Hand> OnHandInitialized = (h) => { };
+		
 		// Skeleton Component
 		public HandSkeleton Skeleton { get; private set; }
 		// Physics  bone capsule collider component
@@ -184,6 +187,11 @@ namespace OculusSampleFramework
 			SkeletonVis = GetComponent<SkeletonVisualizer>();
 			HandMesh = GetComponent<HandMesh>();
 			_confidenceFader = new HandConfidenceFader(40);
+		}
+
+		void Start()
+		{
+			OnHandInitialized.Invoke(this);
 		}
 
 		private void FixedUpdate()
