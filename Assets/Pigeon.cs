@@ -9,7 +9,7 @@ public class Pigeon : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (!other.CompareTag(pigeonTag)){
             ParticleSpawner.Instance.Spawn(transform.position);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
