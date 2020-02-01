@@ -22,6 +22,12 @@ namespace Pope
         {
             camera = GetComponent<Camera>();
             rayDirection = camera.transform.forward;
+            HandTracker.OnHandVisible += OnHandVisible;
+        }
+
+        void OnDestroy()
+        {
+            HandTracker.OnHandVisible -= OnHandVisible;
         }
 
         void Start()
@@ -55,18 +61,14 @@ namespace Pope
             }
         }
 
-        void Bless()
+        void OnHandVisible(bool isVisible)
         {
-            Vector3 rayDirection = camera.transform.forward;
-            RaycastHit hit;
-
-            Vector3 rayStart = camera.ViewportToWorldPoint(Vector3.zero);
-            
-            if (Physics.Raycast(rayStart, rayDirection, out hit, raycastMaxDistance))
+            if (!isVisible)
             {
-                var pilgrims = hit.collider.GetComponent<PilgrimGroup>();
-                pilgrims.OnHit();
+                return;
             }
+            
+            currentPilgrimGroup?.OnHit();
         }
     }
 }

@@ -9,6 +9,9 @@ namespace Pope
 
         ParticleSystem.Particle[] particles;
         int count;
+
+        float incrementValue = .1f;
+        float blessing;
         
         void Start()
         {
@@ -20,9 +23,16 @@ namespace Pope
 
         public void OnHit()
         {
-            for (int i = 0; i < count; i++)
+            // pokazanie particli blessingu
+            // nabijanie blessingu
+            // na wymaksowanie podniesienie do gory
+            // i instantiate kolejnych pilgrimow na to miejsce
+
+            blessing += incrementValue;
+
+            if (blessing >= 1)
             {
-                particles[i].color = Color.black;
+                // blessed!
             }
         }
     }
