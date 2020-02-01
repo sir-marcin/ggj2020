@@ -2,49 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using OculusSampleFramework;
 
 public class HandTracker : MonoBehaviour
 {
-    public static event Action<float> OnMachanko = (distance) => { };
+    public static event Action<bool> OnHandVisible = (isVisible) => { };
+    
+    new Transform transform;
 
-
-    Vector3 lastPosition;
-    int timer;
-    // Start is called before the first frame update
-    void Start()
+    List<Hand> hands = new List<Hand>(2);
+    bool anyHandVisible;
+    
+    void Awake()
     {
-
-        timer = 0;
-
+        Hand.OnHandInitialized += StartTrackingHand;
     }
 
-    // Update is called once per frame
-    void Update()
-
+    void OnDestroy()
     {
+        Hand.OnHandInitialized -= StartTrackingHand;
+    }
 
+    void StartTrackingHand(Hand hand)
+    {
+        hands.Add(hand);
+    }
 
-        if (timer % 10 == 0)
+    void Update()
+    {
+        for (int i = 0; i < hands.Count; i++)
         {
-
-            float distance = Vector3.Distance(lastPosition, transform.position);
-            // Debug.Log($"distance {distance}");
-
-            if (distance > 0.01)
+            var h = hands[i];
+            
+            if (h.IsTracked && h.Pointer.PointerPosition.y >= 1)
             {
-                OnMachanko.Invoke(distance);
+                if (!anyHandVisible)
+                {
+                    OnHandVisible.Invoke(true);
+                }
+                
+                anyHandVisible = true;
+                return;
             }
-
-            lastPosition = transform.position;
-            // Debug.Log($"lastPosition {lastPosition}");
-
         }
 
-
-    }
-
-    void FixedUpdate()
-    {
-
+        if (anyHandVisible)
+        {
+            OnHandVisible.Invoke(false);
+        }
+        
+        anyHandVisible = false;
     }
 }

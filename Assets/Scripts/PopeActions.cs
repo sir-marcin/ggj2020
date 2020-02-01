@@ -22,12 +22,12 @@ namespace Pope
         {
             camera = GetComponent<Camera>();
             rayDirection = camera.transform.forward;
-            HandTracker.OnMachanko += OnMachanko;
+            HandTracker.OnHandVisible += OnHandVisible;
         }
 
         void OnDestroy()
         {
-            HandTracker.OnMachanko -= OnMachanko;
+            HandTracker.OnHandVisible -= OnHandVisible;
         }
 
         void Start()
@@ -61,8 +61,13 @@ namespace Pope
             }
         }
 
-        void OnMachanko(float intensity)
+        void OnHandVisible(bool isVisible)
         {
+            if (!isVisible)
+            {
+                return;
+            }
+            
             currentPilgrimGroup?.OnHit();
         }
     }

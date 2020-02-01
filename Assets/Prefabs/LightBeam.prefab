@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 698457274225099715}
+  - component: {fileID: 6672766835918845010}
   m_Layer: 0
   m_Name: LightBeam
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6672766835918845010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7486320539719121749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818c56eb1f0d4b38b5bfc130646c5efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystem: {fileID: 4511602501430315699}
 --- !u!1 &7929899218315387299
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +198,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aedc2521304ee5f4480d53c2473f9a09, type: 3}
+--- !u!1 &4511602501430315699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2259759595535124686, guid: aedc2521304ee5f4480d53c2473f9a09,
+    type: 3}
+  m_PrefabInstance: {fileID: 2431989924315153021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2768013090554272213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 552215210748550056, guid: aedc2521304ee5f4480d53c2473f9a09,
