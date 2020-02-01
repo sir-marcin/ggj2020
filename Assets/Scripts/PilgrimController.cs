@@ -8,6 +8,9 @@ namespace Pope
         [Header("Config")] 
         [SerializeField] Vector2Int size;
         [SerializeField] float distance;
+        [SerializeField] float LODz1 = 3;
+        [SerializeField] float LODz2 = 5;
+        
         PilgrimGroup[,] pilgrims;
         Vector3 positionOffset;
         new Transform transform;
@@ -15,9 +18,8 @@ namespace Pope
         {
             transform = GetComponent<Transform>();
             pilgrims = new PilgrimGroup[size.x, size.y];
-            positionOffset.x = size.x / -2f;
-            positionOffset.z = size.y / -2f;
-            positionOffset *= distance;
+            positionOffset.x = size.x / -2f * distance + distance / 2;
+            positionOffset.z = size.y / -2f * distance + distance / 2;
         }
         void Start()
         {

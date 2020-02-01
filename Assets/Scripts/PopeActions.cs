@@ -14,6 +14,7 @@ namespace Pope
         Transform beam;
         Camera camera;
         Vector3 rayDirection;
+        PilgrimGroup currentPilgrimGroup;
         
         const float raycastMaxDistance = 360f;
 
@@ -25,7 +26,7 @@ namespace Pope
 
         void Start()
         {
-            beam = Instantiate(lightBeam).transform;
+            beam = Instantiate(lightBeam, Vector3.down * -100, Quaternion.identity).transform;
         }
         
         void Update()
@@ -43,15 +44,17 @@ namespace Pope
             {
                 if (hit.collider.CompareTag(pilgrimsTag))
                 {
-                    beam.position = hit.collider.transform.position;
+                    currentPilgrimGroup = hit.collider.gameObject.GetComponent<PilgrimGroup>();
+                    beam.position = currentPilgrimGroup.transform.position;
                 }
                 else
                 {
+                    currentPilgrimGroup = null;
                     beam.position = hit.point;
                 }
             }
         }
-        
+
         void Bless()
         {
             Vector3 rayDirection = camera.transform.forward;
