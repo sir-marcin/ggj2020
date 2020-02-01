@@ -15,7 +15,8 @@ namespace Pope
         Camera camera;
         Vector3 rayDirection;
         PilgrimGroup currentPilgrimGroup;
-        
+        int layerMask = 1 << 8;
+
         const float raycastMaxDistance = 360f;
 
         void Awake()
@@ -46,7 +47,7 @@ namespace Pope
 
             Vector3 rayStart = camera.ViewportToWorldPoint(Vector3.zero);
             
-            if (Physics.Raycast(rayStart, rayDirection, out var hit, raycastMaxDistance))
+            if (Physics.Raycast(rayStart, rayDirection, out var hit, raycastMaxDistance, layerMask))
             {
                 if (hit.collider.CompareTag(pilgrimsTag))
                 {
