@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +11,7 @@ namespace Pope
         [SerializeField] ParticleSystem particleSystem;
         [SerializeField] AudioSource audioSource;
         [SerializeField] float fadeSpeed = 1f;
-        
+
         [SerializeField] AudioClip[] clips;
         
         ParticleSystem.Particle[] particles;
@@ -20,16 +21,19 @@ namespace Pope
         float blessing;
         float initialVolume;
         IEnumerator fade;
-
+        bool blessed;
+        Collider col;
+        
         void Awake()
         {
             fade = SmoothFadeOut();
-            HandTracker.OnHandVisible += FadeOnHandDown;
+            //HandTracker.OnHandVisible += FadeOnHandDown;
+            col = GetComponent<Collider>();
         }
 
         void OnDestroy()
         {
-            HandTracker.OnHandVisible -= FadeOnHandDown;
+            //HandTracker.OnHandVisible -= FadeOnHandDown;
         }
 
         void Start()
@@ -53,31 +57,30 @@ namespace Pope
         
         public void OnHit(bool state)
         {
-            if (!state)
+            if (audioSource.isPlaying)
             {
-                StartCoroutine(fade);
-            }
-            else if (!audioSource.isPlaying)
-            {
-                StopCoroutine(fade);
-                audioSource.clip = clips[Random.Range(0, clips.Length)];
-                audioSource.Play();
-                audioSource.volume = initialVolume;
+                return;
             }
             
-            // pokazanie particli blessingu
-            // nabijanie blessingu
-            // na wymaksowanie podniesienie do gory
-            // i instantiate kolejnych pilgrimow na to miejsce
-
-            blessing += incrementValue;
-
-            if (blessing >= 1)
-            {
-                // blessed!
-            }
+            StopCoroutine(fade);
+            audioSource.clip = clips[Random.Range(0, clips.Length)];
+            audioSource.Play();
+            audioSource.volume = initialVolume;
         }
 
+        public void Bless()
+        {
+            blessing += incrementValue;
+            
+            if (!blessed && blessing >= 1)
+            {
+                blessed = true;
+                col.enabled = false;
+                transform.DOLocalMove(transform.localPosition + Vector3.up * 200f, 4f).SetEase(Ease.InQuad)
+                    .OnComplete(() => gameObject.SetActive(false));
+            }
+        }
+        
         IEnumerator SmoothFadeOut()
         {
             while (audioSource.volume > .05f)

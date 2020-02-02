@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 4511602501430315699}
+  cube: {fileID: 7929899218315387299}
 --- !u!1 &7929899218315387299
 GameObject:
   m_ObjectHideFlags: 0

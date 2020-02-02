@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Configuration;
 using UnityEngine;
 
 namespace Pope
@@ -16,7 +18,8 @@ namespace Pope
         Vector3 rayDirection;
         PilgrimGroup currentPilgrimGroup;
         int layerMask = 1 << 8;
-
+        HandTracker handTracker;
+        
         const float raycastMaxDistance = 360f;
 
         void Awake()
@@ -24,16 +27,24 @@ namespace Pope
             camera = GetComponent<Camera>();
             rayDirection = camera.transform.forward;
             HandTracker.OnHandVisible += OnHandVisible;
+            HandTracker.OnInitialized += SetHandTracker;
         }
 
+        void SetHandTracker(HandTracker handTracker)
+        {
+            this.handTracker = handTracker;
+        }
+        
         void OnDestroy()
         {
             HandTracker.OnHandVisible -= OnHandVisible;
+            HandTracker.OnInitialized -= SetHandTracker;
         }
 
         void Start()
         {
             beam = Instantiate(lightBeam, Vector3.down * -100, Quaternion.identity).transform;
+            StartCoroutine(IntervalBless());
         }
         
         void Update()
@@ -63,6 +74,26 @@ namespace Pope
             }
         }
 
+        void Bless()
+        {
+            currentPilgrimGroup?.Bless();
+        }
+
+        IEnumerator IntervalBless()
+        {
+            WaitForSeconds wait = new WaitForSeconds(.2f);
+            
+            while (true)
+            {
+                yield return wait;
+
+                if (handTracker.AnyHandVisible)
+                {
+                    Bless();
+                }
+            }
+        }
+        
         void OnHandVisible(bool isVisible)
         {
             currentPilgrimGroup?.OnHit(isVisible);

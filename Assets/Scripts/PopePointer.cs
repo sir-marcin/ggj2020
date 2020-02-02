@@ -6,6 +6,7 @@ namespace Pope
     public class PopePointer : MonoBehaviour
     {
         [SerializeField] GameObject particleSystem;
+        [SerializeField] GameObject cube;
 
         void Awake()
         {
