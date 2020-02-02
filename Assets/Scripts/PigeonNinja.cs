@@ -15,7 +15,7 @@ namespace Pope
         Pigeon[] pigeons;
 
         int index;
-        Vector3 startPosition = new Vector3(0f, 20f, 70f);
+        Vector3 startPosition = new Vector3(0f, 50f, 50f);
         WaitForSeconds wait = new WaitForSeconds(5);
         
         void Awake()
@@ -70,7 +70,7 @@ namespace Pope
             Vector3 middlePoint = (from - to) / 2;
 
             middlePoint.x += Random.Range(-10f, 10f);
-            middlePoint.y = to.y - 1f;
+            middlePoint.y = to.y + 5f;
             
             return new Vector3[]
             {

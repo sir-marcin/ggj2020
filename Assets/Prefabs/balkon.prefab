@@ -88,9 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5f62608728467fb93a7d4c6c7d25fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  widthVariation: 3
-  minFlyTime: 5
-  maxFlyTime: 10
+  widthVariation: 10
+  minFlyTime: 10
+  maxFlyTime: 15
 --- !u!1 &256512224262092472
 GameObject:
   m_ObjectHideFlags: 0
