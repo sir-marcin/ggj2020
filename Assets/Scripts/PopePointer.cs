@@ -26,7 +26,6 @@ namespace Pope
             }
             
             particleSystem.SetActive(state);
-            cube.SetActive(state);
         }
     }
 }
