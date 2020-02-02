@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="pwncooing_data" version="1.3.0" audacityversion="2.1.3" sel0="0.1449206349" sel1="0.6739909297" vpos="0" h="0.0000000000" zoom="455.4012391870" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="cooing" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="0.316228" pan="0.0">
+		<waveclip offset="0.14492063">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="23332">
+				<waveblock start="0">
+					<simpleblockfile filename="e000012b.au" len="23332" min="-1.003556" max="1.002946" rms="0.359864"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="cooing" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="0.316228" pan="0.0">
+		<waveclip offset="0.14492063">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="23332">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000c79.au" len="23332" min="-1.003564" max="1.002931" rms="0.359864"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="poof" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.584893" pan="0.0">
+		<waveclip offset="0.14492063">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="17415">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000e6b.au" len="17415" min="-0.660086" max="0.7943" rms="0.164311"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
