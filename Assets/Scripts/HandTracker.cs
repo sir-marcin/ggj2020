@@ -7,12 +7,15 @@ using OculusSampleFramework;
 public class HandTracker : MonoBehaviour
 {
     public static event Action<bool> OnHandVisible = (isVisible) => { };
+    public static event Action<HandTracker> OnInitialized = (h) => { };
     
     new Transform transform;
 
     List<Hand> hands = new List<Hand>(2);
     bool anyHandVisible;
-    
+
+    public bool AnyHandVisible => anyHandVisible;
+
     void Awake()
     {
         Hand.OnHandInitialized += StartTrackingHand;
@@ -26,6 +29,8 @@ public class HandTracker : MonoBehaviour
     void StartTrackingHand(Hand hand)
     {
         hands.Add(hand);
+        
+        OnInitialized.Invoke(this);
     }
 
     void Update()
@@ -34,7 +39,7 @@ public class HandTracker : MonoBehaviour
         {
             var h = hands[i];
             
-            if (h.IsTracked && h.Pointer.PointerPosition.y >= 1)
+            if (h.IsTracked && h.Pointer.PointerPosition.y >= 1f)
             {
                 if (!anyHandVisible)
                 {

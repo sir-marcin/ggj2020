@@ -11,7 +11,7 @@ namespace Pope
         [SerializeField] ParticleSystem particleSystem;
         [SerializeField] AudioSource audioSource;
         [SerializeField] float fadeSpeed = 1f;
-        
+
         [SerializeField] AudioClip[] clips;
         
         ParticleSystem.Particle[] particles;
@@ -22,11 +22,13 @@ namespace Pope
         float initialVolume;
         IEnumerator fade;
         bool blessed;
+        Collider col;
         
         void Awake()
         {
             fade = SmoothFadeOut();
             HandTracker.OnHandVisible += FadeOnHandDown;
+            col = GetComponent<Collider>();
         }
 
         void OnDestroy()
@@ -66,22 +68,21 @@ namespace Pope
                 audioSource.Play();
                 audioSource.volume = initialVolume;
             }
-            
-            // pokazanie particli blessingu
-            // nabijanie blessingu
-            // na wymaksowanie podniesienie do gory
-            // i instantiate kolejnych pilgrimow na to miejsce
+        }
 
+        public void Bless()
+        {
             blessing += incrementValue;
-
+            
             if (!blessed && blessing >= 1)
             {
                 blessed = true;
-                transform.DOLocalMove(Vector3.up * 50f, 2f).SetEase(Ease.InQuad)
+                col.enabled = false;
+                transform.DOLocalMove(transform.localPosition + Vector3.up * 200f, 4f).SetEase(Ease.InQuad)
                     .OnComplete(() => gameObject.SetActive(false));
             }
         }
-
+        
         IEnumerator SmoothFadeOut()
         {
             while (audioSource.volume > .05f)
