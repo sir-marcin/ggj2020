@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,7 +21,8 @@ namespace Pope
         float blessing;
         float initialVolume;
         IEnumerator fade;
-
+        bool blessed;
+        
         void Awake()
         {
             fade = SmoothFadeOut();
@@ -72,9 +74,11 @@ namespace Pope
 
             blessing += incrementValue;
 
-            if (blessing >= 1)
+            if (!blessed && blessing >= 1)
             {
-                // blessed!
+                blessed = true;
+                transform.DOLocalMove(Vector3.up * 50f, 2f).SetEase(Ease.InQuad)
+                    .OnComplete(() => gameObject.SetActive(false));
             }
         }
 
