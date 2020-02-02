@@ -15,7 +15,7 @@ namespace Pope
         Pigeon[] pigeons;
 
         int index;
-        Vector3 startPosition = new Vector3(0f, 10f, 20f);
+        Vector3 startPosition = new Vector3(0f, 20f, 70f);
         WaitForSeconds wait = new WaitForSeconds(5);
         
         void Awake()
@@ -45,14 +45,39 @@ namespace Pope
             }
 
             var p = pigeons[index];
-            p.transform.localPosition = new Vector3(Random.Range(-widthVariation, widthVariation), startPosition.y, startPosition.z);
-            p.transform.localRotation = Quaternion.Euler(new Vector3(Random.Range(-1080, 1080), Random.Range(-1080, 1080), Random.Range(-1080, 1080)));
-            p.gameObject.SetActive(true);
+            p.ToggleMesh();
             var time = Random.Range(minFlyTime, maxFlyTime);
-            p.transform.DOLocalMove(Vector3.right * Random.Range(-widthVariation, widthVariation), time);
-            p.transform.DOLocalRotate(Vector3.zero, time);
 
+            var pTran = p.transform;
+            
+            pTran.localPosition = new Vector3(Random.Range(-widthVariation, widthVariation), startPosition.y, startPosition.z);
+            pTran.Rotate(Vector3.up, 180f);
+            p.gameObject.SetActive(true);
+            //p.transform.DOLocalMove(Vector3.right * Random.Range(-widthVariation, widthVariation), time).OnComplete(p.ToggleMesh);
+
+            var target = Vector3.right * Random.Range(-2, 2);
+            
+            p.transform.DOLocalPath(
+                GetPath(pTran.localPosition, target), time, PathType.CatmullRom).OnComplete(p.ToggleMesh);
+
+            p.Target = target;
+            
             index++;
+        }
+
+        Vector3[] GetPath(Vector3 from, Vector3 to)
+        {
+            Vector3 middlePoint = (from - to) / 2;
+
+            middlePoint.x += Random.Range(-10f, 10f);
+            middlePoint.y = to.y - 1f;
+            
+            return new Vector3[]
+            {
+                from,
+                middlePoint,
+                to
+            };
         }
     }
 }
