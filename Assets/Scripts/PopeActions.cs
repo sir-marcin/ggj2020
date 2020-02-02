@@ -52,6 +52,7 @@ namespace Pope
                 if (hit.collider.CompareTag(pilgrimsTag))
                 {
                     currentPilgrimGroup = hit.collider.gameObject.GetComponent<PilgrimGroup>();
+                    
                     beam.position = currentPilgrimGroup.transform.position;
                 }
                 else
@@ -64,12 +65,7 @@ namespace Pope
 
         void OnHandVisible(bool isVisible)
         {
-            if (!isVisible)
-            {
-                return;
-            }
-            
-            currentPilgrimGroup?.OnHit();
+            currentPilgrimGroup?.OnHit(isVisible);
         }
     }
 }
