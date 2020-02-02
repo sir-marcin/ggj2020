@@ -27,13 +27,13 @@ namespace Pope
         void Awake()
         {
             fade = SmoothFadeOut();
-            HandTracker.OnHandVisible += FadeOnHandDown;
+            //HandTracker.OnHandVisible += FadeOnHandDown;
             col = GetComponent<Collider>();
         }
 
         void OnDestroy()
         {
-            HandTracker.OnHandVisible -= FadeOnHandDown;
+            //HandTracker.OnHandVisible -= FadeOnHandDown;
         }
 
         void Start()
@@ -57,17 +57,15 @@ namespace Pope
         
         public void OnHit(bool state)
         {
-            if (!state)
+            if (audioSource.isPlaying)
             {
-                StartCoroutine(fade);
+                return;
             }
-            else if (!audioSource.isPlaying)
-            {
-                StopCoroutine(fade);
-                audioSource.clip = clips[Random.Range(0, clips.Length)];
-                audioSource.Play();
-                audioSource.volume = initialVolume;
-            }
+            
+            StopCoroutine(fade);
+            audioSource.clip = clips[Random.Range(0, clips.Length)];
+            audioSource.Play();
+            audioSource.volume = initialVolume;
         }
 
         public void Bless()
