@@ -61,7 +61,8 @@ namespace Pope
                 GetPath(pTran.localPosition, target), time, PathType.CatmullRom).OnComplete(p.ToggleMesh);
 
             p.Target = target;
-            
+            p.Create();
+
             index++;
         }
 

@@ -3,7 +3,27 @@ guid: abf4d4f4ae959ec48b421b4b1ffcfbba
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: aab22ce3f46f43c4284003f87416d463, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: balustrada
+    second: {fileID: 2100000, guid: bf19be5dac4630246a18f26b3a73c0f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carpet
+    second: {fileID: 2100000, guid: 1dfc032779bce7c408a051e8203aca66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lannister
+    second: {fileID: 2100000, guid: c547c77f5379de04580ad1b89ee8a30b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
